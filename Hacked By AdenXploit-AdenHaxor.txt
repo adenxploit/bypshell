@@ -1,0 +1,123 @@
+
+<html>
+ <head>
+  <title>Hacked By AdenXploit</title> <link rel="icon" type="image/x-icon" href="https://a.top4top.io/p_34941jv5l0.png">
+   <meta content='ADENXPLOIT Was Here!' name='description'/>
+    <meta content='Hacked By ADENXPLOIT' name='keywords'/>
+     <meta content='ADENXPLOIT' name='Abstract'/>
+      <meta name="title" content="Hacked By ADENXPLOIT"> <meta name="description" content="AdenXploit berhasil meretas 60+ situs dalam 2 hari"> <meta name="keywords" content="ADENXPLOIT">
+       <meta name="googlebot" content="index,follow"/>
+        <meta name="robots" content="all"/>
+         <meta name="robots schedule" content="auto"/>
+         <meta name="distribution" content="global"/>
+          <meta contact='#'/>
+           <meta charset="utf-8"> <style> html, body { background-color: black ; color: black; margin: 0; } .full-height { height: 70vh; } .flex-center { align-items: center; display: flex; justify-content: center; } .position-ref { position: relative; } 
+           . </style> </head>
+           <body>
+            <body align="center" oncontextmenu="return false" bgcolor="black"><div class="error">  <div class="flex-center position-ref full-height"> <div class="content">
+            <iframe width="0" height="0" src="" frameborder="0" allow="autoplay" allowfullscreen="none"></iframe>
+              <div class="text"><font color="white">
+               <img src="https://media.tenor.com/ZgbfJDDS9yQAAAAM/anime-depressed.gif" alt="AdenXploit" width="70%"  border="0"></a><br /><a  height="1">
+<div class="middle">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: WHITE;
+      color: lime;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    .glitch {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 22px;
+      color: black;
+      position: relative;
+      animation: glitch 1s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width:100%;
+      background: white;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 red;
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 red;
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      20% { clip: rect(0, 9999px, 10px, 0); }
+      40% { clip: rect(0, 9999px, 5px, 0); }
+      60% { clip: rect(0, 9999px, 15px, 0); }
+      80% { clip: rect(0, 9999px, 3px, 0); }
+      100% { clip: rect(0, 9999px, 8px, 0); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip: rect(5px, 9999px, 10px, 0); }
+      20% { clip: rect(8px, 9999px, 20px, 0); }
+      40% { clip: rect(3px, 9999px, 15px, 0); }
+      60% { clip: rect(10px, 9999px, 25px, 0); }
+      80% { clip: rect(2px, 9999px, 18px, 0); }
+      100% { clip: rect(6px, 9999px, 12px, 0); }
+    }
+  </style>
+</head>
+<body>
+  <p class="glitch" data-text="Hacked By ADENXPLOIT">Hacked By ADENXPLOIT</p>
+</body>
+</div>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body style="color:RED; text-align:center;">
+
+<B><p style="font-family: 'Raleway', sans-serif; font-size: 20px; letter-spacing: 1px; color: red !important;">
+  meski hujan menutup pandanganku,<br>
+aku masih mengingat arah mimpiku💔.
+</p></B>
+</body>
+                  <font color="red" size="3px"> </font><font size="3px"></font>	
+
+<marquee width="500"><font color="brown">| t.me/AdenOfficial91 |</marquee></pre></font>
+    <br><br>
+    <audio autoplay loop controls id="player">
+  <source src="https://github.com/AdenOfficial91/adenofficial/raw/refs/heads/main/by%20aden%20Mengejar%20Mimpi%20(1).mp3" type="audio/mpeg">
+</audio>
+
+<style>
+  /* Hilangin style default browser */
+  audio {
+    outline: none;
+    width: 300px;
+    height: 40px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, red, red);
+    box-shadow: 0 0 15px rgba(189, 255, 249, 1);
+  }
+  
+  /* Biar ada animasi glow */
+  audio::-webkit-media-controls-panel {
+    background: linear-gradient(90deg, red, pink);
+    border-radius: 20px;
+  }
+</style>
+  </div>
+   </body>
+</html>
