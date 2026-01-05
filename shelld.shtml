@@ -85,7 +85,7 @@ body {
 </div>
 
 <div class="methods">
-<h3>🔧 METODE SERANGAN:</h3>
+<h3>METODE SERANGAN:</h3>
 <strong>1. File Upload:</strong><br>
 - Upload file .shtml/.stm<br>
 - Bypass extension: .jpg%00.shtml<br>
