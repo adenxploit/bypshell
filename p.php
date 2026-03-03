@@ -76,7 +76,7 @@ $items = scandir($currentDir);
 
 <h2>File Manager</h2>
 <p>Path: <?= htmlspecialchars($currentDir) ?></p>
-<p><a href="?path=<?= urlencode(dirname($currentDir)) ?>">⬅️ Kembali</a></p>
+<p><a href="?path=<?= urlencode(dirname($currentDir)) ?>">Kembali</a></p>
 
 <form method="post" enctype="multipart/form-data">
     <input type="file" name="upload" required>
@@ -91,7 +91,7 @@ $items = scandir($currentDir);
     $isDir = is_dir($path);
     ?>
     <tr>
-        <td><?= $isDir ? "📁" : "📄" ?> <?= $isDir ? "<a href='?path=" . urlencode($path) . "'>$item</a>" : $item ?></td>
+        <td><?= $isDir ? ">>>" : ">>>" ?> <?= $isDir ? "<a href='?path=" . urlencode($path) . "'>$item</a>" : $item ?></td>
         <td>
             <?php if (!$isDir): ?>
                 <a href="?path=<?= urlencode($currentDir) ?>&download=<?= urlencode($item) ?>">Download</a> |
